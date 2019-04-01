@@ -1,0 +1,17 @@
+{
+  "name": "titrate",
+  "version": "0.0.0",
+  "description": "🧪 mixing benchmarks into your workflow",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielcsapo/titrate.git"
+  },
+  "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielcsapo/titrate/issues"
+  },
+  "homepage": "https://github.com/gabrielcsapo/titrate#readme"
+}
