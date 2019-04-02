@@ -4,7 +4,6 @@
 
 [![Npm Version](https://img.shields.io/npm/v/titrate.svg)](https://www.npmjs.com/package/titrate)
 [![Build Status](https://travis-ci.org/gabrielcsapo/titrate.svg?branch=master)](https://travis-ci.org/gabrielcsapo/titrate)
-[![Coverage Status](https://lcov-server.gabrielcsapo.com/badge/github%2Ecom/gabrielcsapo/titrate.svg)](https://lcov-server.gabrielcsapo.com/coverage/github%2Ecom/gabrielcsapo/titrate)
 [![Dependency Status](https://starbuck.gabrielcsapo.com/badge/github/gabrielcsapo/titrate/status.svg)](https://starbuck.gabrielcsapo.com/github/gabrielcsapo/titrate)
 [![devDependency Status](https://starbuck.gabrielcsapo.com/badge/github/gabrielcsapo/titrate/dev-status.svg)](https://starbuck.gabrielcsapo.com/github/gabrielcsapo/titrate#info=devDependencies)
 [![npm](https://img.shields.io/npm/dt/titrate.svg)]()
