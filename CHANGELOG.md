@@ -1,4 +1,4 @@
-# 0.0.1 (04/01/2019)
+# 0.0.1 (14/09/2023)
 
 - basic functionality for benchmarking using bdd or exports
 

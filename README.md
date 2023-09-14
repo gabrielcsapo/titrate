@@ -3,9 +3,6 @@
 > 🧪 mixing benchmarks into your workflow
 
 [![Npm Version](https://img.shields.io/npm/v/titrate.svg)](https://www.npmjs.com/package/titrate)
-[![Build Status](https://travis-ci.org/gabrielcsapo/titrate.svg?branch=master)](https://travis-ci.org/gabrielcsapo/titrate)
-[![Dependency Status](https://starbuck.gabrielcsapo.com/badge/github/gabrielcsapo/titrate/status.svg)](https://starbuck.gabrielcsapo.com/github/gabrielcsapo/titrate)
-[![devDependency Status](https://starbuck.gabrielcsapo.com/badge/github/gabrielcsapo/titrate/dev-status.svg)](https://starbuck.gabrielcsapo.com/github/gabrielcsapo/titrate#info=devDependencies)
 [![npm](https://img.shields.io/npm/dt/titrate.svg)]()
 [![npm](https://img.shields.io/npm/dm/titrate.svg)]()
 
@@ -35,19 +32,19 @@ Options:
 Though suites/benches are executed serially, the benches themselves can be asyncronous. Furthermore, suites ran with the titrate command line runner have a number of globals to simplify bench definitions. Take the following code, for example:
 
 ```js
-suite('Make Tea', function () {
-  var tea = new CupOfTea('green');
+suite("Make Tea", function () {
+  var tea = new CupOfTea("green");
 
-  bench('boil water', function(next) {
-    tea.boil('85℃', function (err, h20) {
+  bench("boil water", function (next) {
+    tea.boil("85℃", function (err, h20) {
       // perfect temperature!
       next();
     });
   });
 
-  // add tea, pour, ...  
-  bench('sip tea', function() {
-    tea.sip('mmmm');
+  // add tea, pour, ...
+  bench("sip tea", function () {
+    tea.sip("mmmm");
   });
 });
 ```
@@ -61,16 +58,16 @@ Since boiling water takes time, a `next` function was provided to each iteration
 Arbitrary functions may be specified for setup or teardown for each suite by using the `before` and `after` keywords. These function may be sync or async.
 
 ```js
-suite('DB', function() {
-  before(function(next) {
-    db.connect('localhost:9090', next);
+suite("DB", function () {
+  before(function (next) {
+    db.connect("localhost:9090", next);
   });
 
-  bench(function(next) {
+  bench(function (next) {
     // ...
   });
 
-  after(function() {
+  after(function () {
     db.close();
   });
 });
@@ -84,9 +81,9 @@ any given suite, and will be retained for any nested suites or benches of that s
 To set an option:
 
 ```js
-suite('Make Tea', function () {
-  set('iterations', 10000);
-  set('type', 'static');
+suite("Make Tea", function () {
+  set("iterations", 10000);
+  set("type", "static");
   // ...
 });
 ```
@@ -96,11 +93,11 @@ suite('Make Tea', function () {
 Here are all available options and the default values:
 
 ```js
-set('iterations', 100);     // the number of times to run a given bench
-set('concurrency', 1);      // the number of how many times a given bench is run concurrently
-set('type', 'adaptive');    // or 'static' (see below)
-set('mintime', 500);        // when adaptive, the minimum time in ms a bench should run
-set('delay', 100);          // time in ms between each bench
+set("iterations", 100); // the number of times to run a given bench
+set("concurrency", 1); // the number of how many times a given bench is run concurrently
+set("type", "adaptive"); // or 'static' (see below)
+set("mintime", 500); // when adaptive, the minimum time in ms a bench should run
+set("delay", 100); // time in ms between each bench
 ```
 
 ##### Static vs Adaptive
@@ -128,21 +125,25 @@ $ tirate --files=suite1.js,suite2.js
 ```
 
 #### -i, --interface <name>
+
 The --interface option lets you specify the interface to use, defaulting to "bdd".
 
 #### -r, --reporter <name>
+
 The --reporter option allows you to specify the reporter that will be used, defaulting to "clean".
 
 ### Interfaces
-Titrate "interface" system allows developers to choose their style of DSL. Shipping with bdd, and     exports flavoured interfaces.
+
+Titrate "interface" system allows developers to choose their style of DSL. Shipping with bdd, and exports flavoured interfaces.
+
 #### bdd
 
 ```js
-suite('suite name', function(){
-  set('iterations', 10);
+suite("suite name", function () {
+  set("iterations", 10);
 
-  bench('bench name', function(done){
-      some_fn(done);
+  bench("bench name", function (done) {
+    some_fn(done);
   });
 });
 ```
@@ -150,22 +151,22 @@ suite('suite name', function(){
 #### exports
 
 ```js
-exports['suite name'] = {
-    options: {
-      iterations: 10
+exports["suite name"] = {
+  options: {
+    iterations: 10,
+  },
+  bench: {
+    "bench name": function (done) {
+      some_fn(done);
     },
-    bench: {
-        'bench name': function (done) {
-            some_fn(done);
-        }
-    }
+  },
 };
 ```
 
 ### Reporters
 
-* json (outputs information in json format)
-* clean (Good-looking default reporter with colors on the terminal screen)
-* plain (Similar to _clean_ reporter but without colors and other ANSI sequences.)
-* csv (Completely different, create csv formated rows for later processing.)
-* markdown (Creates markdown output)
+- json (outputs information in json format)
+- clean (Good-looking default reporter with colors on the terminal screen)
+- plain (Similar to _clean_ reporter but without colors and other ANSI sequences.)
+- csv (Completely different, create csv formated rows for later processing.)
+- markdown (Creates markdown output)
