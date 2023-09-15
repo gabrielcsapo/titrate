@@ -1,3 +1,8 @@
+# Unreleased
+
+- adds html reporter
+- fixes end emit not being called after suite finishes
+
 # 0.0.2 (14/09/2023)
 
 - remove bdd and utilize imports for better editor and typing support

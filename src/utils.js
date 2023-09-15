@@ -20,8 +20,11 @@ export async function series(item, delay, iterator) {
     if (!fn) return;
     await iterator(fn);
 
-    await new Promise((resolve) => {
-      if (!delay) return iterate(++i);
+    await new Promise(async (resolve) => {
+      if (!delay) {
+        await iterate(++i);
+        resolve();
+      }
       setTimeout(async function () {
         await iterate(++i);
         resolve();

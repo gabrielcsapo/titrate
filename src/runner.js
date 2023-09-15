@@ -57,14 +57,12 @@ class Runner extends EventEmitter {
    * - after hooks
    *
    * @method run
-   * @param  {Function} done
    */
-  run(done) {
-    var self = this;
+  async run() {
     var stats = (this.stats = { suites: 0, benches: 0 });
 
-    function iterator(fn, next) {
-      fn(next);
+    async function iterator(fn) {
+      await fn();
     }
 
     this.on("bench start", function () {
@@ -75,17 +73,10 @@ class Runner extends EventEmitter {
       stats.suites++;
     });
 
-    function next(err) {
-      if (err) throw err;
-      stats.elapsed = self.timer.stop().elapsed;
-      self.emit("end", stats);
-      done();
-    }
-
     this.timer = new Timer().start();
     this.emit("start");
 
-    series(
+    await series(
       [
         this.runBefore.bind(this),
         this.runBenches.bind(this),
@@ -93,7 +84,10 @@ class Runner extends EventEmitter {
         this.runAfter.bind(this),
       ],
       iterator
-    ).finally(next);
+    );
+
+    stats.elapsed = this.timer.stop().elapsed;
+    this.emit("end", stats);
   }
 
   /**

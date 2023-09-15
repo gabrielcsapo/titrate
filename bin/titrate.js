@@ -36,7 +36,9 @@ const cli = woof(
         default: "clean",
         validate: (reporter) => {
           return (
-            ["markdown", "clean", "csv", "plain", "json"].indexOf(reporter) > -1
+            ["html", "markdown", "clean", "csv", "plain", "json"].indexOf(
+              reporter
+            ) > -1
           );
         },
       },
