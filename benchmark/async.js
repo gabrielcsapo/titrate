@@ -1,32 +1,40 @@
-var nextTick = setImmediate || process.nextTick
+import { suite, set, bench, before, after } from "../src/index.js";
 
-var bef = false
-var aft = false
+var nextTick = setImmediate || process.nextTick;
 
-suite('async', function () {
-  set('mintime', 2000)
+var bef = false;
+var aft = false;
 
-  before(function (next) {
-    setTimeout(function () {
-      bef = true
-      next()
-    }, 1000)
-  })
+suite("async", () => {
+  set("mintime", 2000);
 
-  bench('setImmediate || nextTick', function (done) {
-    nextTick(done)
-  })
+  before(async () => {
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        bef = true;
+        resolve();
+      }, 1000);
+    });
+  });
 
-  bench('setTimeout 1', function (done) {
-    setTimeout(done, 1)
-  })
+  bench("setImmediate || nextTick", async () => {
+    await new Promise((resolve) => {
+      nextTick(resolve);
+    });
+  });
 
-  after(function () {
-    aft = true
-  })
-})
+  bench("setTimeout 1", async () => {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1);
+    });
+  });
 
-process.on('exit', function () {
-  if (!bef) throw new Error('before did not run')
-  if (!aft) throw new Error('after did not run')
-})
+  after(() => {
+    aft = true;
+  });
+});
+
+process.on("exit", () => {
+  if (!bef) throw new Error("before did not run");
+  if (!aft) throw new Error("after did not run");
+});

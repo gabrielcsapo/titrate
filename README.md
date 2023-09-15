@@ -22,14 +22,13 @@ Options:
   -v, --version                        View titrate version
   -f, --files <comma,seperated,list>    Paths that match the files that are going to be benchmarked
   -r, --reporter [clean]               Specify the reporter to use (markdown, clean, csv, plain, json)
-  -i, --interface [bdd]                Specify the interface to expect (bdd, exports)
 
   Titrate (0.0.0) https://github.com/gabrielcsapo/titrate
 ```
 
 ## Writing Async Benchmarks
 
-Though suites/benches are executed serially, the benches themselves can be asyncronous. Furthermore, suites ran with the titrate command line runner have a number of globals to simplify bench definitions. Take the following code, for example:
+Though suites/benches are executed serially, the benches themselves can be asynchronous. Furthermore, suites ran with the titrate command line runner have a number of globals to simplify bench definitions. Take the following code, for example:
 
 ```js
 suite("Make Tea", function () {
@@ -110,8 +109,8 @@ check again (and repeat) until the requirement has been satisfied.
 
 Running of your benchmarks is provided through `./bin/titrate`. The recommended approach is to add a devDependancy in your `package.json` and then add a line to a `Makefile` or build tool. The `titrate` bin will accept a list of files to load or will look in the current working directory for a folder named `benchmark` and load all files.
 
-```
-$ tirate --files=suite1.js,suite2.js
+```shell
+tirate --files=suite1.js,suite2.js
 ```
 
 ## Options
@@ -121,24 +120,19 @@ $ tirate --files=suite1.js,suite2.js
   -v, --version                        View titrate version
   -f, --files <comma,seperated,list>   Paths that match the files that are going to be benchmarked
   -r, --reporter [clean]               Specify the reporter to use (markdown, clean, csv, plain, json)
-  -i, --interface [bdd]                Specify the interface to expect (bdd, exports)
 ```
-
-#### -i, --interface <name>
-
-The --interface option lets you specify the interface to use, defaulting to "bdd".
 
 #### -r, --reporter <name>
 
 The --reporter option allows you to specify the reporter that will be used, defaulting to "clean".
 
-### Interfaces
+### Usage
 
-Titrate "interface" system allows developers to choose their style of DSL. Shipping with bdd, and exports flavoured interfaces.
-
-#### bdd
+We have provided helpers to setup your suite and files via imports to provide typing information and help debugging. (This was a change from the bdd originally offered).
 
 ```js
+import { suite, bench, set } from "titrate";
+
 suite("suite name", function () {
   set("iterations", 10);
 
@@ -146,21 +140,6 @@ suite("suite name", function () {
     some_fn(done);
   });
 });
-```
-
-#### exports
-
-```js
-exports["suite name"] = {
-  options: {
-    iterations: 10,
-  },
-  bench: {
-    "bench name": function (done) {
-      some_fn(done);
-    },
-  },
-};
 ```
 
 ### Reporters

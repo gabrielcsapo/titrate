@@ -1,31 +1,33 @@
-const { EventEmitter } = require('events')
+import { EventEmitter } from "events";
 
-class Suite extends EventEmitter {
+export default class Suite extends EventEmitter {
   /**
    * Creates a new suite and add it to a given parent. Used
    * by interfaces.
    * @method constructor
    * @param  {String}    title  [description]
+   * @param  {function}  fn - function that is associated with the suite
    * @param  {[Suite]}    parent [description]
    */
-  constructor (title, parent) {
-    super()
+  constructor(title, fn, parent) {
+    super();
 
-    this.title = title || ''
-    this.benches = []
-    this.suites = []
-    this.before = []
-    this.after = []
+    this.title = title || "";
+    this.fn = fn;
+    this.benches = [];
+    this.suites = [];
+    this.before = [];
+    this.after = [];
     this.options = {
-      type: 'adaptive',
+      type: "adaptive",
       iterations: 100,
       concurrency: 1,
       mintime: 500,
-      delay: 100
-    }
+      delay: 100,
+    };
 
     if (parent) {
-      parent.addSuite(this)
+      parent.addSuite(this);
     }
   }
 
@@ -40,9 +42,9 @@ class Suite extends EventEmitter {
    * @api public
    */
 
-  addSuite (suite) {
-    suite.parent = this
-    this.suites.push(suite)
+  addSuite(suite) {
+    suite.parent = this;
+    this.suites.push(suite);
   }
 
   /**
@@ -57,9 +59,9 @@ class Suite extends EventEmitter {
    * @api public
    */
 
-  addBench (bench) {
-    bench.parent = this
-    this.benches.push(bench)
+  addBench(bench) {
+    bench.parent = this;
+    this.benches.push(bench);
   }
 
   /**
@@ -75,8 +77,8 @@ class Suite extends EventEmitter {
    * @api public
    */
 
-  setOption (key, value) {
-    this.options[key] = value
+  setOption(key, value) {
+    this.options[key] = value;
   }
 
   /**
@@ -90,8 +92,8 @@ class Suite extends EventEmitter {
    * @api public
    */
 
-  addBefore (fn) {
-    this.before.push(fn)
+  addBefore(fn) {
+    this.before.push(fn);
   }
 
   /**
@@ -105,9 +107,7 @@ class Suite extends EventEmitter {
    * @api public
    */
 
-  addAfter (fn) {
-    this.after.push(fn)
+  addAfter(fn) {
+    this.after.push(fn);
   }
 }
-
-module.exports = Suite

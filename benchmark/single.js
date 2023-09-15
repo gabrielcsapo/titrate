@@ -1,14 +1,16 @@
-var i = 0
+import { suite, bench, set } from "../src/index.js";
 
-suite('single', function () {
-  set('iterations', 1)
-  set('type', 'static')
+var i = 0;
 
-  bench('i', function () {
-    i++
-  })
-})
+suite("single", () => {
+  set("iterations", 1);
+  set("type", "static");
 
-process.on('exit', function () {
-  if (i !== 1) throw new Error('single ran for ' + i + ' iterations')
-})
+  bench("i", () => {
+    i++;
+  });
+});
+
+process.on("exit", () => {
+  if (i !== 1) throw new Error("single ran for " + i + " iterations");
+});

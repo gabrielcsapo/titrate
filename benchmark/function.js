@@ -1,16 +1,17 @@
+import { suite, bench } from "../src/index.js";
 
-suite('function', function () {
-  function foo () {}
+suite("function", () => {
+  function foo() {}
 
-  bench('foo()', function () {
-    foo(1, 2, 3)
-  })
+  bench("foo()", () => {
+    foo(1, 2, 3);
+  });
 
-  bench('foo.call', function () {
-    foo.call(foo, 1, 2, 3)
-  })
+  bench("foo.call", () => {
+    foo.call(foo, 1, 2, 3);
+  });
 
-  bench('foo.apply', function () {
-    foo.apply(foo, [ 1, 2, 3 ])
-  })
-})
+  bench("foo.apply", () => {
+    foo.apply(foo, [1, 2, 3]);
+  });
+});

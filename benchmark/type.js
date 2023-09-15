@@ -1,14 +1,15 @@
+import { suite, bench, set } from "../src/index.js";
 
-suite('array type', function () {
-  set('iterations', 2000000)
+suite("array type", () => {
+  set("iterations", 2000000);
 
-  var arr = []
+  var arr = [];
 
-  bench('Array.isArray', function () {
-    var isArray = Array.isArray(arr)
-  })
+  bench("Array.isArray", () => {
+    var isArray = Array.isArray(arr);
+  });
 
-  bench('Object.prototype.toString.call', function () {
-    var isArray = (Object.prototype.toString.call(arr) === '[object Array]')
-  })
-})
+  bench("Object.prototype.toString.call", () => {
+    var isArray = Object.prototype.toString.call(arr) === "[object Array]";
+  });
+});
