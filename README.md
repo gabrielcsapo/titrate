@@ -11,3 +11,7 @@
 ```
 npm install titrate --save-dev
 ```
+
+## Documentation
+
+Learn more about using Titrate on the [official site](https://gabrielcsapo.github.io/titrate)!
