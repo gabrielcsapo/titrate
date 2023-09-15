@@ -24,7 +24,7 @@ export function csv(runner) {
         "," +
         results.iterations +
         "," +
-        results.ops.toFixed(0)
+        results.ops.toFixed(0),
     );
   });
 }

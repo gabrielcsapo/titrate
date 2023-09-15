@@ -15,7 +15,7 @@ export function clean(runner) {
     runner.log(chalk.grey("  Suites:  ") + stats.suites);
     runner.log(chalk.grey("  Benches: ") + stats.benches);
     runner.log(
-      chalk.grey("  Elapsed: ") + humanize(stats.elapsed.toFixed(2)) + " ms"
+      chalk.grey("  Elapsed: ") + humanize(stats.elapsed.toFixed(2)) + " ms",
     );
     runner.log("");
   });
@@ -32,7 +32,7 @@ export function clean(runner) {
   runner.on("bench start", function (bench) {
     if (process.stdout) {
       process.stdout.write(
-        "\r" + chalk.yellow(padBefore("wait » ", 25)) + chalk.grey(bench.title)
+        "\r" + chalk.yellow(padBefore("wait » ", 25)) + chalk.grey(bench.title),
       );
     }
   });
@@ -44,7 +44,7 @@ export function clean(runner) {
 
     runner.log(
       chalk.cyan(padBefore(ops + " op/s", 22)) +
-        chalk.grey(" » " + results.title)
+        chalk.grey(" » " + results.title),
     );
   });
 }

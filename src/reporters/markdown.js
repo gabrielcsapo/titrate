@@ -33,7 +33,7 @@ export function markdown(runner) {
         "```\n" +
         humanize(results.ops.toFixed(0)) +
         " op/s" +
-        "\n```\n"
+        "\n```\n",
     );
   });
 }

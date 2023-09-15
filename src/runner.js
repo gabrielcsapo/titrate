@@ -83,7 +83,7 @@ class Runner extends EventEmitter {
         this.runSuites.bind(this),
         this.runAfter.bind(this),
       ],
-      iterator
+      iterator,
     );
 
     stats.elapsed = this.timer.stop().elapsed;

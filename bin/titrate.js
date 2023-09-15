@@ -37,13 +37,13 @@ const cli = woof(
         validate: (reporter) => {
           return (
             ["html", "markdown", "clean", "csv", "plain", "json"].indexOf(
-              reporter
+              reporter,
             ) > -1
           );
         },
       },
     },
-  }
+  },
 );
 
 if (cli.error) {
