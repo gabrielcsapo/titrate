@@ -54,7 +54,7 @@ const config = {
             to: "/docs/getting-started",
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/gabrielcsapo/titrate",
             label: "GitHub",
             position: "right",
           },
