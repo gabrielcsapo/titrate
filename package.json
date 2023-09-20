@@ -1,17 +1,16 @@
 {
   "name": "titrate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "🧪 mixing benchmarks into your workflow",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
     "test": "vitest --coverage --run",
+    "examples": "./bin/titrate.js --files benchmark/array.js,benchmark/async.js,benchmark/concat.js,benchmark/function.js,benchmark/loop.js,benchmark/multiple-suites.js",
     "lint": "prettier --check .",
     "lint:fix": "prettier --write ."
   },
-  "bin": {
-    "titrate": "./bin/titrate.js"
-  },
+  "bin": "./bin/titrate.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gabrielcsapo/titrate.git"
@@ -29,7 +28,9 @@
   "homepage": "https://github.com/gabrielcsapo/titrate#readme",
   "devDependencies": {
     "@vitest/coverage-v8": "^0.34.4",
+    "@vitest/ui": "^0.34.4",
     "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
     "vitest": "^0.34.4"
   },
   "volta": {

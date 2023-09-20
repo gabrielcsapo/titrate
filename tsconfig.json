@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ESNEXT",
+    "module": "ESNext",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": true
+  },
+  "include": ["benchmark/*"]
+}

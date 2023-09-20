@@ -20,12 +20,29 @@ export function clean(runner) {
     runner.log("");
   });
 
+  runner.on("suite skipped", function (suite) {
+    if (suite.title) {
+      runner.log(chalk.yellow(" ⊙ Suite: ") + suite.title);
+      runner.log("");
+      runner.log("");
+    }
+  });
+
   runner.on("suite start", function (suite) {
-    runner.log(chalk.grey("  Suite: ") + suite.title);
-    runner.log("");
+    if (suite.title) {
+      runner.log(chalk.grey("   Suite: ") + suite.title);
+      runner.log("");
+    }
   });
 
   runner.on("suite end", function (suite) {
+    runner.log("");
+  });
+
+  runner.on("bench skipped", function (bench) {
+    runner.log(
+      "\r" + chalk.yellow(padBefore("⊙ » ", 25)) + chalk.grey(bench.title),
+    );
     runner.log("");
   });
 

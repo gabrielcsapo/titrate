@@ -7,9 +7,8 @@ export default class Suite extends EventEmitter {
    * @method constructor
    * @param  {String}    title  [description]
    * @param  {function}  fn - function that is associated with the suite
-   * @param  {[Suite]}    parent [description]
    */
-  constructor(title, fn, parent) {
+  constructor(title, fn, skipped = false) {
     super();
 
     this.title = title || "";
@@ -25,10 +24,7 @@ export default class Suite extends EventEmitter {
       mintime: 500,
       delay: 100,
     };
-
-    if (parent) {
-      parent.addSuite(this);
-    }
+    this.skipped = skipped;
   }
 
   /**

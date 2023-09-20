@@ -122,11 +122,12 @@ async function doAsync(fn, iterations, concurrency, next) {
 }
 
 class Bench extends EventEmitter {
-  constructor(title, fn) {
+  constructor(title, fn, skipped = false) {
     super();
 
     this.title = title;
     this.fn = fn;
+    this.skipped = skipped;
   }
 
   /**

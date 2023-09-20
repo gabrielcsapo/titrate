@@ -101,9 +101,19 @@ class Runner extends EventEmitter {
     var suite = this.suite;
     var delay = suite.options.delay;
 
+    if (suite.skipped) {
+      this.emit("suite skipped", suite);
+      return;
+    }
+
     this.emit("suite start", suite);
 
     await series(suite.benches, delay, async (bench) => {
+      if (bench.skipped) {
+        this.emit("bench skipped", bench);
+        return;
+      }
+
       this.emit("bench start", bench);
       const res = await bench.run();
       stats.push(res);
@@ -124,17 +134,16 @@ class Runner extends EventEmitter {
     var suite = this.suite;
     var delay = suite.options.delay;
 
-    await series(suite.suites, delay, (suite, next) => {
+    await series(suite.suites, delay, async (suite) => {
       var runner = new Runner(suite);
+      proxy(runner, this, "suite skipped");
       proxy(runner, this, "suite start");
       proxy(runner, this, "suite end");
       proxy(runner, this, "suite results");
+      proxy(runner, this, "bench skipped");
       proxy(runner, this, "bench start");
       proxy(runner, this, "bench end");
-      this.emit("suite start", suite);
-      runner.run().then(() => {
-        next();
-      });
+      await runner.run();
     });
   }
 

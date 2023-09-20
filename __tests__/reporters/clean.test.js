@@ -45,7 +45,7 @@ describe("@reporters/clean", () => {
     expect(runner.output).toMatchInlineSnapshot(`
       [
         "",
-        "[90m  Suite: [39mfoo",
+        "[90m   Suite: [39mfoo",
         "",
         "[36m      12,702,222 op/s[39m[90m » foo[39m",
         "",

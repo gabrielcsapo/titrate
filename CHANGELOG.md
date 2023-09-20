@@ -1,7 +1,10 @@
-# Unreleased
+# 0.0.3 (19/09/2023)
 
 - adds html reporter
 - fixes end emit not being called after suite finishes
+- fixes async processes being missed
+- when running multiple suites they are combined into one run to improve output
+- adds skip
 
 # 0.0.2 (14/09/2023)
 

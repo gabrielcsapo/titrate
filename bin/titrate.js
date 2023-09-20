@@ -4,11 +4,12 @@ import fastGlob from "fast-glob";
 import path from "path";
 import woof from "woof";
 
+import Suite from "../src/suite.js";
 import Runner from "../src/runner.js";
 import Reporters from "../src/reporters/index.js";
 import { setCurrentSuite, getSuites } from "../src/index.js";
 
-const version = "0.0.2";
+const version = "0.0.3";
 
 const cli = woof(
   `
@@ -17,7 +18,7 @@ const cli = woof(
   Options:
     -h, --help                           View titrate usage information
     -v, --version                        View titrate version
-    -f, --files <comma,seperated,list>    Paths that match the files that are going to be benchmarked
+    -f, --files <comma,separated,list>   Paths that match the files that are going to be benchmarked (globs or exact paths)
     -r, --reporter [clean]               Specify the reporter to use (markdown, clean, csv, plain, json)
 
     Titrate (${version}) https://github.com/gabrielcsapo/titrate
@@ -55,12 +56,14 @@ if (cli.error) {
 runSuite(cli);
 
 function runSuite({ files: _files, reporter: _reporter }) {
-  const cwd = process.cwd();
-  const files =
-    _files.length > 0
-      ? _files.map((file) => path.resolve(cwd, file))
-      : fastGlob.sync(path.resolve(cwd, "benchmark", "**", "*.js"));
+  if (!_files) {
+    throw new Error("titrate: please specify files with -f or --files.");
+  }
 
+  const cwd = process.cwd();
+  const files = _files
+    .map((file) => fastGlob.sync(path.resolve(cwd, file)))
+    .flat();
   const reporter = Reporters[_reporter];
 
   load(files)
@@ -74,6 +77,8 @@ function runSuite({ files: _files, reporter: _reporter }) {
     });
 
   async function load(files) {
+    const collectionOfSuites = new Suite();
+
     for (const file of files) {
       await import(file);
     }
@@ -81,17 +86,16 @@ function runSuite({ files: _files, reporter: _reporter }) {
     for (const s of getSuites()) {
       setCurrentSuite(s);
       s.fn();
-      await run(s);
+
+      collectionOfSuites.addSuite(s);
     }
+
+    await run(collectionOfSuites);
   }
 
   async function run(suite) {
-    return new Promise((resolve, reject) => {
-      var runner = new Runner(suite);
-      reporter(runner);
-      runner.run(() => {
-        resolve();
-      });
-    });
+    var runner = new Runner(suite);
+    reporter(runner);
+    await runner.run();
   }
 }

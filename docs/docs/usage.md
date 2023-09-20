@@ -132,6 +132,32 @@ suite("suite name", function () {
 });
 ```
 
+### Skipping
+
+```js title="Suite skipping (This will skip all contents of the suite.)"
+import { suite, bench, set } from "titrate";
+
+suite.skip("suite name", function () {
+  set("iterations", 10);
+
+  bench("bench name", function (done) {
+    some_fn(done);
+  });
+});
+```
+
+```js title="Bench skipping (This will only skip the bench that skip is applied to.)"
+import { suite, bench, set } from "titrate";
+
+suite("suite name", function () {
+  set("iterations", 10);
+
+  bench.skip("bench name", function (done) {
+    some_fn(done);
+  });
+});
+```
+
 ### Reporters
 
 - json (outputs information in json format)
